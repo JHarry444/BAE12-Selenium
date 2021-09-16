@@ -52,4 +52,9 @@ public class DemoQaTest {
 		assertEquals("Permananet Address :" + address, permAddressOut.getText());
 
 	}
+
+	@Test
+	void tearDown() {
+		this.driver.close();
+	}
 }
