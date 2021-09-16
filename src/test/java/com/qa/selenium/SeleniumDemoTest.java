@@ -5,18 +5,26 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class SeleniumDemoTest {
+class SeleniumDemoTest {
 
 	private RemoteWebDriver driver;
+
+	private WebDriverWait wait;
 
 	@BeforeEach
 	void setup() {
 		this.driver = new ChromeDriver();
 		this.driver.manage().window().maximize();
+//		this.driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+//		whenever it tries to find an element - keep trying for 5 secs
+		this.wait = new WebDriverWait(driver, 5);
 	}
 
 	@Test
@@ -36,6 +44,18 @@ public class SeleniumDemoTest {
 		assertEquals("Andy's Aquatic Adventures: Series 1: Andy and the Hawksbill Turtles", searchResult.getText());
 //		searchResult.getAttribute("value");
 //		get text works on pretty much everything EXCEPT inputs for those use the example above as reference
+	}
+
+	@Test
+	void testWait() {
+		this.driver.get("https://christophperrins.github.io/TestingSite/");
+
+		this.wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("#quote > h1")));
+
+		WebElement surprise = this.driver.findElementByCssSelector("#quote > h1");
+
+		assertEquals("Surprise!", surprise.getText());
+
 	}
 
 	@AfterEach
