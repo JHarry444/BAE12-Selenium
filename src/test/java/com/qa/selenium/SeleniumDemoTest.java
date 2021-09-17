@@ -9,8 +9,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import com.qa.selenium.pages.DemoQaPage;
 
 class SeleniumDemoTest {
 
@@ -55,6 +58,27 @@ class SeleniumDemoTest {
 		WebElement surprise = this.driver.findElementByCssSelector("#quote > h1");
 
 		assertEquals("Surprise!", surprise.getText());
+	}
+
+	@Test
+	void testTextBoxPOM() {
+		final String testName = "JH";
+		final String testEmail = "J@H.com";
+		final String testAddress = "The cool side of the pillow";
+
+		this.driver.get(DemoQaPage.URL);
+
+		DemoQaPage page = PageFactory.initElements(driver, DemoQaPage.class);
+
+		page.submitForm(testName, testEmail, testAddress);
+
+		assertEquals("Name:" + testName, page.getName());
+
+		assertEquals("Email:" + testEmail, page.getEmail());
+
+		assertEquals("Current Address :" + testAddress, page.getCurrentAddress());
+
+		assertEquals("Permananet Address :" + testAddress, page.getPermanentAddress());
 
 	}
 

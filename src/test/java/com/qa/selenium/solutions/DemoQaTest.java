@@ -2,6 +2,7 @@ package com.qa.selenium.solutions;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebElement;
@@ -53,7 +54,7 @@ public class DemoQaTest {
 
 	}
 
-	@Test
+	@AfterEach
 	void tearDown() {
 		this.driver.close();
 	}
